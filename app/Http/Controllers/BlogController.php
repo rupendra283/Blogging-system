@@ -26,7 +26,8 @@ class BlogController extends Controller
         //     ->get();
         //     # code...
         // }else{
-            $blogs = Blog::all();
+
+            $blogs = Blog::withTrashed()->orderBy('created_at','desc')->get();
         // }
 
         return view('blog.index',compact('blogs'));
@@ -131,8 +132,25 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        $blog->forceDelete();
+        $blog->delete();
         return back()->with('message','blog deleted succesfully');
+
+    }
+
+    public function permanentDelete($slug)
+    {
+        $blog = Blog::withTrashed()->where('slug', $slug)->first();
+        $blog->forceDelete();
+        return back()->with('message','blog deleted permanently');
+
+    }
+
+    public function restore($slug)
+    {
+        $blog = Blog::withTrashed()->where('slug', $slug)->orderBy('created_at','desc')->first();
+        // dd($blog);
+        $blog->restore();
+        return back()->with('message','blog Restore  Succesfully');
 
     }
 }

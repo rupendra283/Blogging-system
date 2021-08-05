@@ -5,21 +5,23 @@
         <div class="col-md-9 mx-auto" >
             <div class="card">
                 <div class="card-header" style="background-image: url({{Storage::url($blog->image)}}); height: 100px; backgrouind-size:cover;">
-                    <h2>   {{$blog->title}}</h2>
+                    <h2>{{$blog->title}}</h2>
                 </div>
                 <div class="card-body">
                     <p>{{$blog->description}}</p>
                     <div class="text-right">
                         <h5>Created by</h5>
-                        <img src="{{Storage::url($blog->user->image)}}" alt="" class="rounded-circle" width="40px" height="40px"> <strong >{{$blog->user->user_name}}</strong>
+                        <img src="{{Storage::url($blog->user->image)}}" alt="" class="rounded-circle" width="60px" height="40px"> <strong >{{$blog->user->user_name}}</strong>
 
                     </div>
                     <hr>
+
                     <div class="comments">
-                        <ul class="list-unstyled">
+                        <h5 class="text-danger font-weight-bold">All Comments{{count($blog->comments)}}</h5>
+                        <ul class="list-unstyled mt-5">
                             @foreach ($blog->comments as $comment)
                             <li class="media">
-                              <img class="mr-3" src="{{Storage::url($comment->user->image)}}" alt="Generic placeholder image" width="50px">
+                              <img class="mr-3" src="{{Storage::url($comment->user->image)}}" alt="Generic placeholder image" width="40px">
                               <div class="media-body">
                                 <h5 class="mt-0 mb-1">{{ $comment->user->user_name }} <i>  {{ Carbon\Carbon::parse($comment->created_at)->diffForHumans()}} </i>
                                  </h5>

@@ -27,11 +27,10 @@ Route::get('/blogs/show/{blog:slug}',[App\Http\Controllers\BlogController::class
     Route::post('/blogs/store', [App\Http\Controllers\BlogController::class, 'store'])->name('blogs.store');
     Route::get('/blogs/{blog:slug}/edit', [App\Http\Controllers\BlogController::class, 'edit'])->name('blogs.edit');
     Route::get('/blogs/{blog:slug}/delete', [App\Http\Controllers\BlogController::class, 'destroy'])->name('blogs.delete');
+    Route::get('/blogs/{blog:slug}/delete-permanent', [App\Http\Controllers\BlogController::class, 'permanentDelete'])->name('blogs.deletePermanent');
+    Route::get('/blogs/{blog:slug}/restore', [App\Http\Controllers\BlogController::class, 'restore'])->name('blogs.restore');
     // //Comment
     Route::post('/comment/store',[App\Http\Controllers\CommentController::class,'store'])->name('comment.store');
-
-
-
 
 // });
 
