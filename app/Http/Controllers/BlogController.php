@@ -27,7 +27,7 @@ class BlogController extends Controller
         //     # code...
         // }else{
 
-            $blogs = Blog::withTrashed()->orderBy('created_at','desc')->get();
+            $blogs = Blog::withTrashed()->get();
         // }
 
         return view('blog.index',compact('blogs'));

@@ -12,10 +12,38 @@
                     @endauth
                 </div>
                 <div class="card-body">
-                   @if(Session::has('message'))
-                    <p class="alert alert-info">{{ Session::get('message') }}</p>
+                    @if(Session::has('message'))
+                     <p class="alert alert-info">{{ Session::get('message') }}</p>
+                     @endif
+                    <div class="row">
+                         @php
+                                 $sr=1;
+                             @endphp
+                         @foreach ($blogs as $blog)
+                         @if ($blog->deleted_at == null)
+                     <div class="col-md-3">
+
+
+                  <img src="{{ Storage::url($blog->user->image)}}" class="rounded-circle" width="60px" height="40px">
+                    <p>{{$blog->user->user_name}}</p>
+                    <div class="card bg-light border-0" style="width:200px">
+                      <a href="/blogs/show/{{$blog->slug}}"> <img class="card-img-top" src="{{ Storage::url($blog->image)}}" alt="Card image" style="width:100%"></a>
+                        <div class="card-body">
+                        <h4 cl  ass="card-title">{{$sr++}}{{$blog->title}}</h4>
+                        <p class="card-text">{{$blog->description}}</p>
+                        <a href="/blogs/show/{{$blog->slug}}" class="btn btn-primary btn-sm">Blog</a>
+                        @auth
+                        @if (Auth::user()->id ==  $blog->user_id)
+                        <a href="/blogs/{{ $blog->slug }}/edit" class="btn btn-success btn-sm">Edit</a>
+                        <a href="/blogs/{{ $blog->slug }}/delete" class="btn btn-danger btn-sm">Delete</a>
+                        @endif
+                        @endauth
+                        </div>
+                    </div>
+                    <br>
                     @endif
-                    <table class="table table-light">
+
+                                        {{-- <table class="table table-light">
                         <thead class="thead-light">
                             <tr>
                                 <th>Sr No</th>
@@ -58,9 +86,12 @@
                             @endif
                             @endforeach
                         </tbody>
-                    </table>
+                    </table> --}}
                 </div>
+                @endforeach
             </div>
+        </div>
+    </div>
         </div>
 
     </div>
